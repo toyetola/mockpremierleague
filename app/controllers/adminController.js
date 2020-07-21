@@ -357,7 +357,7 @@ const adminController = {
                       if(!gh || !rf){
                         return res.status(400).json({message: "Team you are trying to insert deos not exist"});
                       }
-                      if((req.body.team1 && req.body.team1 != fixture.team1 || req.body.team2 && req.body.team2 != fixture.team2) && new Date(fixture.start_time) < new Date()){
+                      if((req.body.team1 && req.body.team1 != fixture.team1 || req.body.team2 && req.body.team2 != fixture.team2) && fixture.start_time < new Date()){
                         return res.status(400).json({
                           message: "Data cannot be updated! The game has taken place"
                         });
@@ -368,9 +368,10 @@ const adminController = {
                         fixture.team2_score = req.body.team2_score ? req.body.team2_score : fixture.team2_score,
                         fixture.start_time = req.body.start_time ? new Date(req.body.start_time) : fixture.start_time,
                         fixture.end_time = req.body.end_time ? new Date(req.body.end_time) : fixture.end_time,
-                        fixture.save();
+                        fixture.update(fx);
+                        return res.json({'success':1, 'message':'Fixture updated successfully', 'fixture':fx})
                       }
-                      return res.json({'success':1, 'message':'Fixture updated successfully', 'fixture':fx})
+                      
                     }else{
                       return res.json({'error': 'Item Not found.'});
                     }

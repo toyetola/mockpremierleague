@@ -163,21 +163,21 @@ const userController = {
             }else{
                 //return res.send({'query':req.query.searchText});
                 // Fixture.find({team1: { $regex: '/^'+req.query.searchText+'$/', $options: "i" }, team2: { $regex: '/^'+req.query.searchText+'/', $options: "i" }})
-                /* Fixture.find({team1: { $regex: '/^'+req.query.searchText+'$/', $options: "i" }, team2: { $regex: '/^'+req.query.searchText+'/', $options: "i" }})
-                .then((fixture) => {
+                Fixture.find({$or: [{team1: new RegExp(req.query.searchText, 'i')}, {team2: new RegExp(req.query.searchText, 'i')}]}, (fixture) => {
                     //console.log("Partial Search Begins");
                     hold = fixture;
-                }).catch((e)=>{
+                })
+                .catch((e)=>{
                     return res.json({'error': e.message});
-                }) */
-                // Team.find({ name: { $regex: "/"+req.query.searchText+"/", $options: "i" }})
+                })
+                
             
-                Team.find({ name: {$regex : "/^"+req.query.searchText+"/i"}}, (err, result) => {
+                Team.find({ name:  new RegExp(req.query.searchText, 'i') }, (err, result) => {
                     //console.log("Partial Search Begins");
                     if (err) throw err
-                    console.log(req.query.searchText);
-                    //result['fixtures'] = hold;
-                    return res.send({'result': result});
+                    //console.log(req.query.searchText);
+                    result['fixtures'] = hold;
+                    return res.json({'result': result, fixtures: hold});
                 })
                 .catch((e)=>{
                     return res.json({'error': e.message});

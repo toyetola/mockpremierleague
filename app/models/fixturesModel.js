@@ -11,11 +11,11 @@ const fixtureSchema = new mongoose.Schema({
     required: true,
   },
   team1_score: {
-    type: Number,
+    type: String,
     default: null
   },
   team2_score: {
-    type: Number,
+    type: String,
     default: null
   },
   start_time: {

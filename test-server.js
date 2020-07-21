@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const db = require("./app/models/index");
-const url= "mongodb+srv://oyetola:oyetola24@main.bxiul.gcp.mongodb.net/mockpremierleague?retryWrites=true&w=majority"
+const url= "mongodb+srv://oyetola:oyetola24@main.bxiul.gcp.mongodb.net/test-mockpremierleague?retryWrites=true&w=majority"
 // return console.log(db);
 db.mongoose
   .connect(url, {
